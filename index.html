@@ -1,0 +1,112 @@
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+
+<div class="countdown">
+  <div class="box red">
+    <div class="number" id="days">00</div>
+    <div class="label">DAYS</div>
+  </div>
+  <div class="box yellow">
+    <div class="number" id="hours">00</div>
+    <div class="label">HOURS</div>
+  </div>
+  <div class="box teal">
+    <div class="number" id="minutes">00</div>
+    <div class="label">MINUTES</div>
+  </div>
+  <div class="box red">
+    <div class="number" id="seconds">00</div>
+    <div class="label">SECONDS</div>
+  </div>
+</div>
+
+<style>
+.countdown {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.box {
+  width: 130px;
+  height: 150px;
+  border-radius: 22px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.box:hover {
+  transform: translateY(-6px) scale(1.04);
+}
+
+.number {
+  font-size: 50px;
+  font-weight: 700; /* Quicksand Bold */
+  line-height: 1;
+}
+
+.label {
+  margin-top: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  opacity: 0.85;
+}
+
+/* COLORS */
+.red {
+  background: rgba(255, 90, 90, 0.18);
+  box-shadow: 0 0 22px rgba(255, 90, 90, 0.4);
+  color: #ff6b6b;
+}
+
+.yellow {
+  background: rgba(255, 210, 60, 0.18);
+  box-shadow: 0 0 22px rgba(255, 210, 60, 0.4);
+  color: #ffd23c;
+}
+
+.teal {
+  background: rgba(70, 220, 210, 0.18);
+  box-shadow: 0 0 22px rgba(70, 220, 210, 0.4);
+  color: #46dcd2;
+}
+</style>
+
+<script>
+  // 🎯 January 26, 3:30 PM GMT
+  const targetDate = new Date("January 26, 2026 15:30:00 GMT").getTime();
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const diff = targetDate - now;
+
+    if (diff <= 0) {
+      days.textContent = "00";
+      hours.textContent = "00";
+      minutes.textContent = "00";
+      seconds.textContent = "00";
+      return;
+    }
+
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("days").textContent = String(d).padStart(2, "0");
+    document.getElementById("hours").textContent = String(h).padStart(2, "0");
+    document.getElementById("minutes").textContent = String(m).padStart(2, "0");
+    document.getElementById("seconds").textContent = String(s).padStart(2, "0");
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
